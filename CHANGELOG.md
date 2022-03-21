@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/openid/AppAuth-JS/compare/v1.4.2...v1.4.3) (2022-03-21)
+
+
+### Bug Fixes
+
+* removed response interceptor. Fixed promise bug ([9c09d2f](https://github.com/openid/AppAuth-JS/commit/9c09d2fe3866e878b71223c6208754f7090a4453))
+
 ### [1.4.2](https://github.com/openid/AppAuth-JS/compare/v1.4.1...v1.4.2) (2022-03-02)
 
 ### [1.4.1](https://github.com/openid/AppAuth-JS/compare/v1.4.0...v1.4.1) (2022-03-02)
