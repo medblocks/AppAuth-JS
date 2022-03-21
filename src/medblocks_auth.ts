@@ -141,20 +141,7 @@ export class MedblocksAuth {
       }
       config.headers = {...config.headers, 'Authorization': `Bearer ${this.token?.accessToken}`};
       return config;
-    }, (err: any) => Promise.resolve(err))
+    }, (err: any) => Promise.reject(err))
 
-    instance.interceptors.response.use((response) => {return response}, async (error: any) => {
-      if ([401, 403].includes(error.response?.status)) {
-        if (await this.storageBackend.getItem(this.authRetryKey)) {
-          log('Request already failed once. Rejecting request')
-              await this.storageBackend.removeItem(this.authRetryKey);
-          return Promise.reject(error);
-        } else {
-          log(`Request status ${error.response?.status}. Trying to force sign in again.`)
-              await this.storageBackend.setItem(this.authRetryKey, 'true');
-          await this.init(true);
-        }
-      }
-    })
   }
 }
