@@ -1518,6 +1518,11 @@
     "jsonparse" "^1.2.0"
     "through" ">=2.2.7 <3"
 
+"jwt-decode@^3.1.2":
+  "integrity" "sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A=="
+  "resolved" "https://registry.npmjs.org/jwt-decode/-/jwt-decode-3.1.2.tgz"
+  "version" "3.1.2"
+
 "karma-browserify@^8.0.0":
   "integrity" "sha512-q5OWuCfdXMfyhkRrH8XP5LiixD4lx0uCmlf6yQmGeQNHLH4Hoofur3tBJtSEhOXmY0mOdBe8ek2UUxicjmGqFQ=="
   "resolved" "https://registry.npmjs.org/karma-browserify/-/karma-browserify-8.1.0.tgz"
