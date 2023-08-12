@@ -70,6 +70,7 @@ export class TokenResponse {
   scope: string|undefined;
   idToken: string|undefined;
   issuedAt: number;
+  originalResponse: any;
 
   constructor(response: TokenResponseJson) {
     this.accessToken = response.access_token;
@@ -81,6 +82,7 @@ export class TokenResponse {
     this.scope = response.scope;
     this.idToken = response.id_token;
     this.issuedAt = response.issued_at || nowInSeconds();
+    this.originalResponse = response;
   }
 
   toJson(): TokenResponseJson {
