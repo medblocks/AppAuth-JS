@@ -19,6 +19,8 @@ import {
   SMARTContext,
   SMARTResponse,
 } from "./medblocks_types";
+import { TokenResponse } from './token_response';
+
 
 const WELL_KNOWN_PATH = ".well-known";
 const SMART_CONFIGURATION = "smart-configuration";
@@ -107,10 +109,31 @@ export const smartAuth = async ({
         refresh_token: undefined,
         extras: extras,
       });
-      const tokenResponse = await tokenHandler.performTokenRequest(
-        authorizationServiceConfig,
-        request
-      );
+
+      const storedTokenString = await storage.getItem('AUTH_TOKENREQUEST');
+      let _tokenResponse: TokenResponse;
+      
+      // Checking if a token response exist in storage
+      if (storedTokenString) {
+        // Parsing the token response to JSON
+        _tokenResponse = JSON.parse(storedTokenString);
+        // Checking if the token has expired or not
+        _tokenResponse = _tokenResponse.isValid() ? _tokenResponse : null!;
+        // checking if the token has the same scopes or different
+        _tokenResponse = _tokenResponse.scope == scope ? _tokenResponse : null!;
+      } else {
+        _tokenResponse = null!
+      }
+
+      // if _tokenResponse is not null then use the storage token response else performTokenRequest
+      const tokenResponse = _tokenResponse ?
+        _tokenResponse :
+        await tokenHandler.performTokenRequest(authorizationServiceConfig, request);
+
+      await storage.setItem('AUTH_TOKENREQUEST', JSON.stringify(tokenResponse.scope))
+
+      tokenResponse.isValid()
+
       const idToken = tokenResponse?.idToken
         ? decode<IdToken>(tokenResponse.idToken)
         : undefined;
