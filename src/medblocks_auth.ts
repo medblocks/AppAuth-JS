@@ -68,6 +68,17 @@ export const smartAuth = async ({
   const authorizationNotifier = new AuthorizationNotifier();
   const redirectHandler = new RedirectRequestHandler(storage);
 
+
+  if(!iss){
+    const _iss = await storage.getItem('ORIGINAL_ISS')
+    if(_iss){
+      iss = _iss
+    }
+  }
+  else{
+    await storage.setItem('ORIGINAL_ISS',iss)
+  }
+
   const smartConfigurationResponse = await fetch(
     `${iss}/${WELL_KNOWN_PATH}/${SMART_CONFIGURATION}`
   );
